@@ -1,23 +1,22 @@
 tw.data.referenceWaters = {
-	"wueteria": {
-		"natrium": 10.7,
-		"kalium": 2.6,
-		"calcium": 118,
-		"magnesium": 48,
-		"chlorid": 43,
-		"nitrat": 0.05,
-		"sulfat": 68,
-		"sources": ["http://www.wueteria.de/unser_wasser/index.php"]
+	"spreequell": {
+		"natrium": 6.4,
+		"kalium": 1.7,
+		"calcium": 17.0,
+		"magnesium": 3.3,
+		"chlorid": 5.2,
+		"sulfat": 59.1,
+		"sources": ["https://www.spreequell.de/getraenke/mineralwasser/mineralwasser-naturell/"]
 	},
-	"teusser": {
-		"natrium": 53,
-		"kalium": 8,
-		"calcium": 565,
-		"magnesium": 82,
-		"chlorid": 27,
-		"nitrat": 0.5,
-		"sulfat": 1450,
-		"sources": ["http://www.teusser.de/index.php?id=225"]
+	"badliebenwerda": {
+		"natrium": 6.9,
+		"kalium": 1.6,
+		"calcium": 15.8,
+		"magnesium": 3,
+		"chlorid": 5,
+		"nitrat": 1.0,
+		"sulfat": 55.8,
+		"sources": ["Flasche"]
 	},
 	"volvic": {
 		"natrium": 11.6,

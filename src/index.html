@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <title>Was steckt in meinem Leitungswasser?</title>
-<meta name="description" content="Weißt du eigentlich, wie gut das Trinkwasser an deinem Wohnort ist? Hier kannst du es herausfinden - für den Stadt- und Landkreis Heilbronn" />
+<meta name="description" content="Weißt du eigentlich, wie gut das Trinkwasser an deinem Wohnort ist? Hier kannst du es herausfinden - für die Stadt Potsdam" />
 
 <!-- build:css css/tw.min.css -->
 <link href="css/bootstrap-cyborg.css" rel="stylesheet" />
@@ -25,61 +25,14 @@
 <body class="bg-gradient state-1">
 	<div class="container">
 		<div class="pull-right hidden-xs">
-			<h1 style="display:none"><small>Region Heilbronn</small></h1>
+			<h1 style="display:none"><small>Stadt Potsdam</small></h1>
 		</div>
 		<h1 style="display:none">Was steckt in meinem Leitungswasser?</h1>
 		
 		<div class="choose-location">
-			<div class="well choose-location-well">
-				<form class="form-horizontal form-choose-location" role="form">
-					<div class="form-group select-city">
-						<label for="city" class="col-sm-2 control-label">Ort</label>
-						<div class="col-sm-10">
-							<select id="city" class="city form-control">
-								<option value="">Bitte auswählen</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group select-district" style="display:none;">
-						<label for="district" class="col-sm-2 control-label">Ortsteil</label>
-						<div class="col-sm-10">
-							<select id="district" class="district form-control">
-							</select>
-						</div>
-					</div>
-					<div class="form-group select-street" style="display:none;">
-						<label for="streetZone" class="col-sm-2 control-label">Straße</label>
-						<div class="col-sm-10">
-							<select id="streetZone" class="streetZone form-control">
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-warning">
-								<span class="glyphicon glyphicon-chevron-right"></span> Weiter
-							</button>
-						</div>
-					</div>
-				</form>
-				<br />
-			</div>
-			
-			<p><small>Derzeit sind Daten aus dem Stadt- und Landkreis Heilbronn auswählbar.</small></p>
-		</div>
-		
-		<div class="results" style="display:none;">
-			<form class="form-inline form-choose-location-quick">
-				<div class="form-group">
-					<select class="city form-control"></select>
-				</div>
-				<div class="form-group select-district">
-					<select class="district form-control"></select>
-				</div>
-				<div class="form-group select-street">
-					<select class="streetZone form-control"></select>
-				</div>
-			</form>
+      <div class='location-container'>
+      <ul class="nav nav-tabs responsive" id="city-tabs"></ul>
+      </div>
 			
 
 			<ul class="nav nav-tabs responsive">
@@ -91,7 +44,7 @@
 				<li class="nav-li-main"><a data-toggle="tab" data-attribute="nitrat">Nitrat</a></li>
 				<li class="nav-li-main"><a data-toggle="tab" data-attribute="sulfat">Sulfat</a></li>
 				<li class="nav-li-main"><a data-toggle="tab" data-attribute="hardness">Härte</a></li>
-				<li class="nav-li-main"><a data-toggle="tab" data-attribute="info"><span class="glyphicon glyphicon-info-sign"></span> Fragen und Antworten</a></li>
+				<!--<li class="nav-li-main"><a data-toggle="tab" data-attribute="info"><span class="glyphicon glyphicon-info-sign"></span> Fragen und Antworten</a></li>-->
 			</ul>
 			
 			<div class="alert alert-warning result-without-value" style="display:none;">
@@ -202,7 +155,7 @@
 									<ul class="gauge-description gauge-glass-description pull-right list-unstyled" style="max-width:200px;">
 										<li class="highlight"><strong>Wert: <span class="gauge-value"></span> mg/l</strong></li>
 										<li>Grenzwert: <span class="gauge-legal-limit"></span></li>
-										<li>Durchschnitt: <span class="gauge-average-value"></span> mg/l<br /><small>(Region Heilbronn, rote Linie)</small></li>
+										<!--<li>Durchschnitt: <span class="gauge-average-value"></span> mg/l<br /><small>(Region Heilbronn, rote Linie)</small></li>-->
 										<li class="gauge-daily-dosis-container">Tagesbedarf: <span class="gauge-daily-dosis">~</span></li>
 									</ul>
 								</div>
@@ -263,8 +216,8 @@
 							<div class="row">
 								<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 compare-nav">
 									<button type="button" class="btn btn-primary btn-lg btn-block active" data-water="volvic">Volvic</button>
-									<button type="button" class="btn btn-primary btn-lg btn-block" data-water="wueteria">Wüteria Heiligenquelle</button>
-									<button type="button" class="btn btn-primary btn-lg btn-block" data-water="teusser">Teusser Naturell</button>
+									<button type="button" class="btn btn-primary btn-lg btn-block" data-water="spreequell">Spreequell</button>
+									<button type="button" class="btn btn-primary btn-lg btn-block" data-water="badliebenwerda">Bad Liebenwerda</button>
 									<button type="button" class="btn btn-primary btn-lg btn-block" data-water="vittel">Vittel</button>
 									<button type="button" class="btn btn-primary btn-lg btn-block" data-water="self" style="margin-top:2em;">mein Leitungswasser</button>
 									
@@ -377,7 +330,7 @@
 							<p><br /></p>
 							<p><button type="button" class="btn btn-warning switch-to-section" data-section="explanation"><span class="glyphicon glyphicon-chevron-left"></span> Zurück</button></p>
 							<p><br /></p>
-							<p><small>Beispielhaft wurden zwei überregional bekannte Wasser sowie zwei Wasser aus dem Landkreis Heilbronn ausgewählt. Alle vier sind stille Mineralwasser.</small></p>
+							<p><small>Beispielhaft wurden zwei überregional bekannte Wasser sowie zwei Wasser aus der Umgebung von Potsdam ausgewählt. Alle vier sind stille Mineralwasser.</small></p>
 						</div>
 						
 						<div class="section section-map" style="display:none;">
@@ -596,13 +549,10 @@
 				<div class="modal-body">
 					<div style="max-height:400px;overflow:scroll;">
 						<h4 style="margin-top:0;">Wie das Trinkwasser-Tool entstanden ist</h4>
-						<p>Trinkwasser gilt als das am besten kontrollierte Lebensmittel in Deutschland. Und trotzdem wissen wir sehr wenig über das Wasser, das bei uns aus dem Hahn kommt. Viele Kommunen veröffentlichen die Untersuchungsergebnisse auf ihren Webseiten. Für den Bürger sind diese Daten abrufbar - aber nicht greifbar. Was bedeutet ein Härtegrad von 9? Sind 200 Milligramm Calcium pro Liter viel oder wenig? Wie mineralreich unser Leitungswasser ist, zeigt sich erst, wenn wir es mit Wasser aus dem Handel vergleichen.</p>
-						<p>Das ist für die Region Heilbronn jetzt möglich. Die Idee dazu entstand Ende Februar beim Open Data Day in Heilbronn. Obwohl viele Daten online verfügbar waren, mussten sie zuerst in eine maschinenlesbare Form gebracht werden. Viele Kommunen veröffentlichen nur PDF-Dateien mit den Jahresdurchschnittswerten. Diese sind nicht maschinenlesbar und mussten von der Redaktion übertragen werden.  Um die Anwendung zu programmieren, ist ein einheitlicher Datensatz notwendig. Auf manchen Webseiten der Kommunen waren die gesuchten Informationen über das Trinkwasser auf Unterseiten versteckt, veraltet oder nicht vollständig. Bei vielen Städten und Gemeinden haben wir deshalb per Email die Daten abgefragt. Nur von drei Kommunen kam bisher keine Rückmeldung.</p>
-						<p>Überraschend war für uns, wie unterschiedlich das Trinkwasser in der Region zusammengesetzt ist. Teilweise differiert der Mineraliengehalt innerhalb einer Ortschaft sehr stark - nämlich dann, wenn es verschiedene Versorgungsbereiche gibt. Kommunen wie Bad Friedrichshall, Neckarsulm oder Zaberfeld sind in mehrere Gebiete eingeteilt. Dies war in der Phase der Datenerhebung eine besondere Herausforderung. Die Gebiete mussten teilweise noch den Straßen zugeordnet werden, damit der Benutzer auch die korrekten Werte für seine eigene Straße angezeigt bekommt. Zu den Trinkwasserpreisen bietet das Statistische Landesamt einen vollständigen Datensatz für alle Landkreise - für die Trinkwasserqualität gibt es einen solchen öffentlichen Datensatz leider nicht.</p>
-						<p>Der dieser Anwendung zugrundliegende Datensatz war deshalb ein aufwändiges Rechercheprojekt. Nicht weniger aufwändig waren für die Entwickler Felix Ebert, Ulrich Stech und Tom Görner Umsetzung und Visualisierung. Eine große Rolle spielten dabei Benutzerfreundlichkeit und Design. Aus trockenen Zahlen sollte eine interaktive Grafik entstehen, durch die der Benutzer einen Zugang zu seinem Trinkwasser bekommt. Für die grafischen Elemente war Heiko Nicht verantwortlich.</p> 
-						<p>Die Trinkwasser-Anwendung ist eine Beta-Version. Vor allem die Datenerhebung kann nie abgeschlossen werden. Viele Kommunen veröffentlichen bald wieder die aktuellen Jahresmittelwerte - diese sollen auch in unserer Anwendung aktualisiert werden. Wir sind dabei auf die Mitarbeit der Rathäuser angewiesen und haben einen Kontaktbereich eingerichtet. Aufgrund des großen Datensatzes kann es zu fehlerhaften Angaben kommen. Wer Auffälligkeifen entdeckt, kann uns jederzeit kontaktieren. Wir freuen uns auch über Feedback.</p>
-						<p>Datensatz und Code der Anwendung sind öffentlich zugänglich und stehen unter einer Open Source-Lizenz.</p>
-						<p>Du bist an weiteren Open Data Anwendungen interessiert oder möchtest selbst mitwirken? In Heilbronn treffen wir uns regelmäßig im Rahmen von <a href="http://codefor.de">Code for Germany</a>, um gemeinsam Open Data Projekten umzusetzen - wir würden uns über deinen Besuch freuen!</p>
+            <p> Dies ist dier Potsdamer Version der <a href="http://opendatalab.de/projects/trinkwasser/">Heilbronner Trinkwasser Website </a></p>
+            <p> Die Navigation der Brunnen basiert auf der Berliner Adaption</p>
+            <p> Basierend auf den Daten der <a href="http://www.swp-potsdam.de/swp/de/wasser/beratung-ewpw/trinkwasseranalyse-ewpw/trinkwasseranalyse.php">Stadtwerke Potsdam</a></p>
+	    <p>Du bist an weiteren Open Data Anwendungen interessiert oder möchtest selbst mitwirken? In Potsdam treffen wir uns regelmäßig im Rahmen von <a href="http://codefor.de">Code for Germany</a>, um gemeinsam Open Data Projekten umzusetzen - wir freuen uns über deinen Besuch!</p>
 					</div>
 				</div>
 			</div>
@@ -617,6 +567,7 @@
 					<h4 class="modal-title">Mitwirkende</h4>
 				</div>
 				<div class="modal-body">
+          <h1 style="color: black;"> Originalversion </h1>
 					<p><strong>Redaktionelle Umsetzung</strong></p>
 					<p>
 						Vanessa Wormer (<a target="_blank" href="https://twitter.com/remrow">@remrow</a>)<br />
@@ -640,8 +591,14 @@
 						Tom Görner<br />
 						Gerd Hoffmann
 					</p>
-					<br />
-					<p>In Heilbronn treffen wir uns regelmäßig im Rahmen von <a href="http://codefor.de">Code for Germany</a>, um gemeinsam Open Data Projekten umzusetzen - wir würden uns über deinen Besuch freuen!</p>
+          <h1 style="color: black;">Potsdamer Version</h1>
+					<p><strong>Adaption</strong></p>
+                                        Florian Köhler<br />
+                                        Martin Koll
+
+        <br />
+        <br />
+					<p>In Potsdam treffen wir uns regelmäßig im Rahmen von <a href="http://codefor.de">Code for Germany</a>, um gemeinsam Open Data Projekten umzusetzen - wir würden uns über deinen Besuch freuen!</p>
 				</div>
 			</div>
 		</div>
@@ -656,16 +613,11 @@
 				</div>
 				<div class="modal-body">
 					<address>
-						IF-Core IT Services GmbH<br>
-						Clemenshaller Str. 5<br>
-						74254 Offenau<br>
-						T. 07136 / 830 26 30<br>
-						F. 07136 / 830 26 27<br>
-						E-Mail: info<!--nospam@blockscanners121987.de-->@if-core.de<br>
-						<br>
-						HRB 108620 (Amtsgericht Stuttgart)<br>
-						USt-IdNr.: DE236085681<br>
-						Geschäftsführer: Felix Ebert<br>
+						Florian Köhler<br>
+						Schulstr. 16<br>
+						14482 Potsdam<br>
+						T. +49 *** / ******<br>
+						E-Mail: code@vektorschmied.de<br>
 					</address>
 				</div>
 			</div>
@@ -682,7 +634,7 @@
 				<div class="modal-body">
 					<p>Wir freuen uns über Feedback:</p>
 
-					<p>E-Mail Adresse: wasser<!--nospam@blockscanners123987.de-->&#64;opendatalab.de - Vielen Dank!</p>
+					<p>E-Mail Adresse:knut+trinkwasser@k-nut.eu - Vielen Dank!</p>
 					<p>Aufgrund der zahlreichen Daten kann es vereinzelt zu fehlerhaften Angaben kommen. Haben Sie einen Fehler entdeckt? Schreiben Sie uns!</p>
 					<p>Oder sind Sie Mitarbeiter einer Kommune und möchten Ihre Daten eintragen? Schicken Sie uns einfach Ihre Daten per E-Mail.</p>
 				</div>

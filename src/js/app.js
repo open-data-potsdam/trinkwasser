@@ -41,14 +41,12 @@ var tw = {
 		});
 	};
 
-	var updateZone = function() {
-		var city = $('#city').val();
+	var updateZone = function(city) {
 		var district = $('#district').val();
 		var streetZone = $('#streetZone').val();
 		var zone = streetZone ? streetZone.substr(0, streetZone.indexOf('|')) : '';
 
 		$('.results').toggle(hasSelectedFirstLocation);
-		$('.choose-location').toggle(!hasSelectedFirstLocation);
 		$('body').toggleClass('state-1', !hasSelectedFirstLocation);
 
 		if (hasSelectedFirstLocation) {
@@ -90,6 +88,38 @@ var tw = {
 			}
 		}
 	};
+
+  var generateCityTabsHtml = function (values) {
+
+    var heading = ['<li class="nav-li-main"><a class="nostyle"> Wasswerwerk: </a></li>'];
+    var links = values.map(function (value) {
+      return '<li class="nav-li-main"><a data-toggle="city-tab" data-attribute="' + value + '">' + value + '</a></li>';
+    });
+    console.log(links);
+    return heading.concat(links);
+  };
+
+  function selectTab(e){
+      $('a[data-toggle="city-tab"]').removeClass('active').closest('.nav-li-main').removeClass('active');
+      attribute = $(e.target).data('attribute');
+      hasSelectedFirstLocation = true;
+      updateZone(attribute);
+      updateSection();
+      attribute = $('li.active > a[data-toggle="tab"]').data('attribute');
+      if (!attribute) {
+        attribute = 'natrium';
+      }
+      updateAttributeContent();
+
+      $(e.target).parent().addClass('active').closest('.nav-li-main').addClass('active');
+  }
+
+  var setupCityTabs = function () {
+    $('#city-tabs').html(generateCityTabsHtml(Object.keys(tw.data.locations)));
+
+    $('a[data-toggle="city-tab"]').on('click', selectTab);
+    setTimeout(function(){$('a[data-toggle="city-tab"]')[0].click();}, 0);
+  };
 
 	var setupTabs = function(startAttribute) {
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
@@ -243,7 +273,7 @@ var tw = {
 
 	tw.init = function() {
 		completeReferenceWaters();
-		setupForm();
+                setupCityTabs();
 		setupQuickForm();
 		setupTabs('natrium');
 		setupSectionSwitch();
