@@ -95,7 +95,7 @@ var tw = {
     var links = values.map(function (value) {
       return '<li class="nav-li-main"><a data-toggle="city-tab" data-attribute="' + value + '">' + value + '</a></li>';
     });
-    console.log(links);
+    //console.log(links);
     return heading.concat(links);
   };
 
@@ -112,13 +112,37 @@ var tw = {
       updateAttributeContent();
 
       $(e.target).parent().addClass('active').closest('.nav-li-main').addClass('active');
+      
+      var newLocHash = $(e.target).attr('data-attribute');
+      window.location.hash = encodeURIComponent(newLocHash);
   }
 
   var setupCityTabs = function () {
     $('#city-tabs').html(generateCityTabsHtml(Object.keys(tw.data.locations)));
 
     $('a[data-toggle="city-tab"]').on('click', selectTab);
-    setTimeout(function(){$('a[data-toggle="city-tab"]')[0].click();}, 0);
+    
+    // check for location hash (anchor)
+    var bOpenFirst = true;
+    var locHash = decodeURIComponent(window.location.hash);
+    locHash = locHash.substr(1);
+    
+    if (locHash.strlen > 0) {
+        
+        $('#city-tabs .nav-li-main').each(function(countTab){
+
+            if ($('a', this).attr('data-attribute') == locHash) {
+                setTimeout(function(){$('a[data-toggle="city-tab"]')[countTab-1].click();}, 10);
+                bOpenFirst = false;
+            }
+        }); 
+        
+    }
+    
+    if (bOpenFirst == true) {
+        setTimeout(function(){$('a[data-toggle="city-tab"]')[0].click();}, 0);
+        window.location.hash = $('a[data-toggle="city-tab"]').attr("data-attribute");
+    }
   };
 
 	var setupTabs = function(startAttribute) {
