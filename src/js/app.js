@@ -91,7 +91,7 @@ var tw = {
 
   var generateCityTabsHtml = function (values) {
 
-    var heading = ['<li class="nav-li-main"><a class="nostyle"> Wasswerwerk: </a></li>'];
+    var heading = ['<li class="nav-li-main"><a class="nostyle"> Wasserwerk: </a></li>'];
     var links = values.map(function (value) {
       return '<li class="nav-li-main"><a data-toggle="city-tab" data-attribute="' + value + '">' + value + '</a></li>';
     });
