@@ -1,41 +1,77 @@
 function p_wahlKarte_init() {
   'use strict';
 
-	// Basemap
-  // var wikiosmUrl='http://maps.wikimedia.org/osm-intl/{z}}/{x}/{y}.png';
-	// var hikebikeUrl='http://toolserver.org/tiles/hikebike/{z}}/{x}/{y}.png';
-	var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	var osmAttrib='Kartendaten © <a href="http://openstreetmap.org">OpenStreetMap</a>-Beitragende';
-	var wikiosmAttrib ='';
-	var basemap = new L.TileLayer(osmUrl, {minZoom: 10, maxZoom: 18, attribution: osmAttrib});
+  var dummy = 0;
 
-	// // Add Basemap (only testing, not for production!)
-	// var basemap = new L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYWxjb2ZyaWJhcyIsImEiOiJjaXB0anlxZWgwMDM2aHVtMnZyZXdkeHIxIn0.ABRkbCUsPYK-bjfaDJ0PZw', {
-	// 		// maxZoom: crs.options.resolutions.length,
-	// 		// continuousWorld: true,
-	// 	attribution: 'Kartendaten &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-	// 					 '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-	// 					 'Bilddaten © <a href="http://mapbox.com">Mapbox</a>',
-	// 	id: 'mapbox.streets'
-	// });
-	basemap.addTo(map);
+  do
+  {
+    dummy = 0;
+  }
+  while (L == undefined);
+
+  var map = new L.Map('leafmap');
+
+  // Basemaps
+  // find others at https://leaflet-extras.github.io/leaflet-providers/preview/
+
+  // too many colors to combine it with colored overlays
+  var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  var osmAttrib='Kartendaten © <a href="http://openstreetmap.org">OpenStreetMap</a>-Beitragende';
+  var wikiosmAttrib ='';
+  var OSM_Mapnik = new L.TileLayer(osmUrl, {minZoom: 10, maxZoom: 18, attribution: osmAttrib});
+
+  // allright!
+  var OSM_BlackAndWhite = new L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+     subdomains: 'abcd',
+     maxZoom: 18
+  });
+
+  // quite good!
+  var CartoDB_Positron = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  });
+
+  // no, too little detail in low zoom levels
+  var Stamen_Toner = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', {
+    attribution: 'Kacheln von <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Kartendaten &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    subdomains: 'abcd',
+    minZoom: 0,
+    maxZoom: 20,
+    ext: 'png'
+  });
+
+  var baseLayers = {
+    "Carto Positron": CartoDB_Positron,
+    "OSM b/w": OSM_BlackAndWhite
+    // "Stamen Toner": Stamen_Toner,
+    // "OSM Mapnik": OSM_Mapnik
+  };
+
+  var baseControl = L.control.layers(baseLayers);
+
+  var waterDistricts = L.geoJson(districts, {
+  	style: style,
+  	onEachFeature: onEachFeature
+  });
 
 	// map overlay: Potsdam waterworks districts
+  map.addLayer(CartoDB_Positron);
 	waterDistricts.addTo(map);
+  baseControl.addTo(map);
 
 	// Set Viewport adequately
-	map.setMaxBounds(waterDistricts.getBounds());
-	map.options.minZoom = map.getZoom(); // not nescessary?
+  map.fitBounds(waterDistricts.getBounds());
+	map.options.minZoom = 11; // don't zoom out too far!
 
-	mapResetView();
+  return map;
 }
 
-var map = new L.Map('leafmap');
+var map = p_wahlKarte_init();
 
-var waterDistricts = L.geoJson(districts, {
-	style: style,
-	onEachFeature: onEachFeature
-});
+mapResetView();
 
 function mapResetView() {
 		map.setView([52.3948, 13.0604], 10);
@@ -50,10 +86,11 @@ function onEachFeature(feature, layer) {
 }
 
 function style(feature) {
+    var color = feature.properties.color;
 		return { weight: 1,
-						 color: '#f78307',
+						 color: color,
 						 opacity: 0.5,
-						 fillColor: '#f78307',
+						 fillColor: color,
 						 fillOpacity: 0.3,
              // add property to draw doubled lines only once
 		};
@@ -64,8 +101,8 @@ function highlightFeature(e) {
 		var layer = e.target;
 
 		layer.setStyle({
-								 opacity: 0.7,
-								 fillOpacity: 0.5
+								 opacity: 0.8,
+								 fillOpacity: 0.6
 							 });
 
 		if (!L.Browser.ie && !L.Browser.opera) {
@@ -76,12 +113,15 @@ function highlightFeature(e) {
 
 function resetHighlight(e) {
 		// reset highlight on mouseout
-		waterDistricts.resetStyle(e.target);
+    var layer = e.target;
+		layer.setStyle({
+								 opacity: 0.5,
+								 fillOpacity: 0.3
+							 });
 }
 
 function districtChoosen(e) {
 		var location = e.target.feature.properties.id;
-		console.log('Klick für',location);
 		$('a[data-attribute="'+location+'"]').click();
 		$("#wahlKarte").modal('hide');
 }

@@ -648,14 +648,13 @@
 				#leafmap {
 					min-height: 400px;
 					display: block;
-
+				}
 				.modal-footer {
 					text-align: center;
 					font-size: large;
 				}
-				}
 			</style>
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 								<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -667,12 +666,7 @@
 								<div class="modal-body" style="height:fill">
 										<div id="leafmap"></div>
 								</div>
-								<div class="modal-footer" id="waterWorks">
-										<style scoped>
-											text-align: center !important;
-											font-weight: bold;
-										</style>
-								</div>
+								<div class="modal-footer" id="waterWorks" style="text-align:center font-weight:bold"></div>
 								<!--<div class="modal-footer">
 										<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
 								</div>-->
@@ -681,11 +675,11 @@
 		</div>
 
 		<!-- build:js js/tw.min.js -->
+		<script src="lib/leaflet.js"></script>
 		<script src="lib/jquery.js"></script>
 		<script src="lib/bootstrap.js"></script>
 		<script src="lib/d3.js"></script>
 		<script src="lib/colorbrewer.js"></script>
-		<script src="lib/leaflet.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/utils.js"></script>
 		<script src="data/locations.js"></script>
@@ -700,7 +694,6 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				tw.init();
-				p_wahlKarte_init();
 			});
 		</script>
 	</body>
