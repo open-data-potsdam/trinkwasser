@@ -91,54 +91,63 @@ var tw = {
 
   var generateCityTabsHtml = function (values) {
 
-    var heading = ['<li class="nav-li-main"><a class="nostyle"> Wasserwerk: </a></li>'];
+    var heading = ['<li class="nav-li-main">\
+											<a href="#wahlKarte" role="button" class="btn" data-backdrop="true" data-toggle="modal">\
+													Wasserwerk\
+											</a>\
+									  </li>'];
     var links = values.map(function (value) {
-      return '<li class="nav-li-main"><a data-toggle="city-tab" data-attribute="' + value + '">' + value + '</a></li>';
+      return '<li class="nav-li-main">\
+								<a data-toggle="city-tab" data-attribute="' + value + '">' +
+									value +
+							 '</a>\
+						  </li>';
     });
     //console.log(links);
     return heading.concat(links);
   };
 
-  function selectTab(e){
-      $('a[data-toggle="city-tab"]').removeClass('active').closest('.nav-li-main').removeClass('active');
-      attribute = $(e.target).data('attribute');
-      hasSelectedFirstLocation = true;
-      updateZone(attribute);
-      updateSection();
-      attribute = $('li.active > a[data-toggle="tab"]').data('attribute');
+	function setActiveTab(location) {
+			$('a[data-toggle="city-tab"]').removeClass('active').closest('.nav-li-main').removeClass('active');
+			hasSelectedFirstLocation = true;
+			updateZone(location);
+			updateSection();
+			attribute = $('li.active > a[data-toggle="tab"]').data('attribute');
       if (!attribute) {
         attribute = 'natrium';
       }
       updateAttributeContent();
+			$('a[data-attribute="'+location+'"]').parent().addClass('active').closest('.nav-li-main').addClass('active');
+			window.location.hash = encodeURIComponent(attribute);
+	}
 
-      $(e.target).parent().addClass('active').closest('.nav-li-main').addClass('active');
-      
-      var newLocHash = $(e.target).attr('data-attribute');
-      window.location.hash = encodeURIComponent(newLocHash);
+  function selectTab(e){
+			attribute = $(e.target).data('attribute');
+			setActiveTab(attribute);
   }
 
   var setupCityTabs = function () {
     $('#city-tabs').html(generateCityTabsHtml(Object.keys(tw.data.locations)));
 
     $('a[data-toggle="city-tab"]').on('click', selectTab);
-    
+
     // check for location hash (anchor)
     var bOpenFirst = true;
     var locHash = decodeURIComponent(window.location.hash);
     locHash = locHash.substr(1);
-    
+
     if (locHash.strlen > 0) {
-        
+
         $('#city-tabs .nav-li-main').each(function(countTab){
 
             if ($('a', this).attr('data-attribute') == locHash) {
                 setTimeout(function(){$('a[data-toggle="city-tab"]')[countTab-1].click();}, 10);
                 bOpenFirst = false;
             }
-        }); 
-        
+        });
+
     }
-    
+
     if (bOpenFirst == true) {
         setTimeout(function(){$('a[data-toggle="city-tab"]')[0].click();}, 0);
         window.location.hash = $('a[data-toggle="city-tab"]').attr("data-attribute");
