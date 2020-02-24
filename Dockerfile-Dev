@@ -1,7 +1,6 @@
 FROM node:12-alpine3.11
 
 MAINTAINER Benji <dev@fortrieb.org>
-# user: "node"
 WORKDIR /home/node/app
 ENV NODE_ENV development
 ENV NPM_CONFIG_LOGLEVEL info
