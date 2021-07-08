@@ -33,8 +33,27 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: ['<%= jshint.files %>'],
-			tasks: ['jshint']
+			scripts: {
+				files: ['<%= jshint.files %>', 'src/*html'],
+				tasks: ['jshint'],
+				options: {
+					spawn: false,
+					livereload: {
+						host: '0.0.0.0',
+						port: 35729
+					}
+				}
+			}
+		},
+		connect: {
+			server: {
+				options: {
+					base: 'src',
+					hostname: '0.0.0.0',
+					port: 8081,
+					livereload: true,
+				}
+			}
 		},
 		useminPrepare: {
 			html: ['src/*.html'],
@@ -93,11 +112,6 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		devserver: {
-			options: {
-				port: 8091
-			}
-		},
 		'gh-pages': {
 			options: {
 				base: 'dist'
@@ -112,6 +126,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-jsonmin');
@@ -124,4 +139,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', ['clean:dist', 'useminPrepare', 'imagemin', 'concat', 'cssmin', 'uglify', 'copy:dist', 'rev', 'usemin']);
 	grunt.registerTask('deploy', ['build', 'gh-pages']);
 	grunt.registerTask('default', ['build']);
+	grunt.registerTask('dev', ['connect', 'watch']);
 };
